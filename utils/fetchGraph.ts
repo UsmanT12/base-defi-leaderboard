@@ -42,14 +42,18 @@ export async function fetchGraphData(): Promise<LiquidityPosition[]> {
     const GRAPH_API_KEY =
       process.env.NEXT_PUBLIC_GRAPH_API_KEY || "YOUR_API_KEY_HERE";
 
-    // Using Uniswap V3 Base subgraph (verified working)
-    const SUBGRAPH_ID = "5zvR82QoaXYFyDEKLZ9t6v9adgnptxYpKpSbxtgVENFV";
+    // Using Aerodrome Base Full subgraph (verified working)
+    // Aerodrome is the leading DEX on Base chain
+    const SUBGRAPH_ID = "GENunSHWLBXm59mBSgPzQ8metBEp9YDfdqwFr91Av1UM";
 
     const res = await fetch(
-      `https://gateway-arbitrum.network.thegraph.com/api/${GRAPH_API_KEY}/subgraphs/id/${SUBGRAPH_ID}`,
+      `https://gateway.thegraph.com/api/subgraphs/id/${SUBGRAPH_ID}`,
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${GRAPH_API_KEY}`,
+        },
         body: JSON.stringify({ query }),
       }
     );

@@ -53,8 +53,8 @@ export default function Home() {
         {positions.length > 0 && positions[0].id !== "0x1" && (
           <div className="bg-green-900/20 border border-green-800 rounded-lg p-4 mb-6">
             <p className="text-green-300 text-sm">
-              ✅ <strong>Live Data:</strong> Connected to Uniswap V3 on Base via
-              The Graph Network
+              ✅ <strong>Live Data:</strong> Connected to Aerodrome Finance on
+              Base via The Graph Network
             </p>
           </div>
         )}

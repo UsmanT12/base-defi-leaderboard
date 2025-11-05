@@ -1,22 +1,24 @@
 # Base DeFi Leaderboard 🧱
 
-A live leaderboard displaying top liquidity providers on Base chain.
+A live leaderboard displaying top liquidity pools from Aerodrome Finance on Base chain.
 
-> **⚠️ Note:** Currently displaying demo data. See [SUBGRAPH_SETUP.md](./SUBGRAPH_SETUP.md) for instructions on connecting to live subgraph data from The Graph Network.
+> **✅ Live Data:** Connected to Aerodrome Finance, the leading DEX on Base. Add your Graph API key to `.env.local` to fetch real-time data.
 
 ## 🚀 Features
 
-- **Real-time Data**: Designed to fetch live liquidity positions from Base DeFi protocols
-- **Top 10 Leaderboard**: Ranked by liquidity token balance
-- **Summary Stats**: Total liquidity, top trading pair, and unique providers
-- **BaseScan Integration**: Click-through links to view wallets on BaseScan
+- **Real-time Data**: Fetches live liquidity pool data from Aerodrome Finance on Base
+- **Top 10 Pools**: Ranked by Total Value Locked (TVL) in USD
+- **Summary Stats**: Total liquidity, top trading pair, and unique pool count
+- **BaseScan Integration**: Click-through links to view pool contracts on BaseScan
 - **Dark Mode UI**: Modern, responsive design with Tailwind CSS
+- **Aerodrome Finance**: Connected to the #1 DEX on Base by TVL
 
 ## 🛠️ Tech Stack
 
 - **Frontend**: Next.js 14 + TypeScript
 - **Styling**: Tailwind CSS
-- **Data Source**: The Graph (configurable for any Base protocol)
+- **Data Source**: The Graph Network (Aerodrome Finance subgraph)
+- **DEX**: Aerodrome Finance (Leading DEX on Base)
 - **Blockchain**: Base (Ethereum L2)
 
 ## 📦 Installation
@@ -25,11 +27,17 @@ A live leaderboard displaying top liquidity providers on Base chain.
 # Install dependencies
 npm install
 
+# Create environment file and add your Graph API key
+cp .env.example .env.local
+# Edit .env.local and add: NEXT_PUBLIC_GRAPH_API_KEY=your_api_key_here
+
 # Run development server
 npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+**Get your free API key:** [The Graph Studio](https://thegraph.com/studio/)
 
 ## 🏗️ Project Structure
 
@@ -47,17 +55,25 @@ base-defi-leaderboard/
 
 ## 🔗 Data Source
 
-This project is designed to work with subgraphs from Base DeFi protocols via [The Graph](https://thegraph.com).
+This project fetches real-time data from **Aerodrome Finance** via [The Graph Network](https://thegraph.com).
 
-**Current Status:** Using demo data for demonstration purposes.
+**Current Configuration:**
 
-**To connect to live data:**
+- **Protocol**: Aerodrome Finance (Base's #1 DEX by TVL)
+- **Subgraph ID**: `GENunSHWLBXm59mBSgPzQ8metBEp9YDfdqwFr91Av1UM`
+- **Endpoint**: `https://gateway.thegraph.com/api/subgraphs/id/`
+- **Top Pools**: WETH/USDC ($83M+), WETH/cbBTC ($53M+), USDC/cbBTC ($31M+)
 
-1. Get an API key from [The Graph Studio](https://thegraph.com/studio/)
-2. See [SUBGRAPH_SETUP.md](./SUBGRAPH_SETUP.md) for detailed setup instructions
-3. Update the endpoint in `utils/fetchGraph.ts`
+**Setup Instructions:**
 
-Supported protocols: Aerodrome, Uniswap V3, BaseSwap, and any other Base protocol with a subgraph.
+1. Get a free API key from [The Graph Studio](https://thegraph.com/studio/)
+2. Create `.env.local` in the project root:
+   ```bash
+   NEXT_PUBLIC_GRAPH_API_KEY=your_api_key_here
+   ```
+3. Restart the dev server - live data will load automatically!
+
+**Want to use a different protocol?** Update the `SUBGRAPH_ID` in `utils/fetchGraph.ts`. Compatible with any Base DEX that has a Graph subgraph (Uniswap V3, BaseSwap, etc.).
 
 ## 📊 GraphQL Query Example
 
@@ -79,16 +95,34 @@ Supported protocols: Aerodrome, Uniswap V3, BaseSwap, and any other Base protoco
 
 ## 🎨 Customization
 
-To switch to a different protocol or connect to live data:
+### Switch to a Different DEX
 
-1. **Get Graph API Key**: Sign up at [thegraph.com/studio](https://thegraph.com/studio/)
-2. **Update Endpoint**: Edit `utils/fetchGraph.ts` with your API key and subgraph ID
-3. **Adjust Query**: Modify the GraphQL query to match your subgraph schema
-4. **Update Types**: Adjust TypeScript interfaces if the data structure differs
+To use Uniswap V3, BaseSwap, or another protocol:
 
-See [SUBGRAPH_SETUP.md](./SUBGRAPH_SETUP.md) for detailed instructions.
+1. Find the subgraph on [The Graph Explorer](https://thegraph.com/explorer)
+2. Copy the Subgraph ID
+3. Update `SUBGRAPH_ID` in `utils/fetchGraph.ts`
+4. Verify the GraphQL schema matches (most DEXs use similar structures)
 
-## 📝 License
+### Example: Switch to Uniswap V3
+
+```typescript
+// In utils/fetchGraph.ts
+const SUBGRAPH_ID = "5zvR82QoaXYFyDEKLZ9t6v9adgnptxYpKpSbxtgVENFV"; // Uniswap V3 Base
+```
+
+No other code changes needed - the query structure is compatible!
+
+## � About Aerodrome Finance
+
+[Aerodrome Finance](https://aerodrome.finance) is the leading decentralized exchange (DEX) on Base, featuring:
+
+- **$168M+ Total Value Locked** (highest on Base)
+- **57.7M+ queries** on The Graph in the past 30 days
+- **Concentrated Liquidity Pools** with efficient capital utilization
+- **Native to Base**: Built specifically for the Base ecosystem
+
+## �📝 License
 
 MIT
 
